@@ -139,11 +139,11 @@ class PollReader():
                    Positive values indicate an increase, negative values indicate a decrease.
         """
 
-        early_harris = sum(self.data_dict['Harris result'][-30:])/30
-        late_harris = sum(self.data_dict['Harris result'][:30])/30
+        early_harris = sum(self.data_dict['Harris result'][-30:]) / 30 # finds avg of polls for harris result for first 30
+        late_harris = sum(self.data_dict['Harris result'][:30]) / 30 # last 30
 
-        early_trump = sum(self.data_dict['Trump result'][-30:])/30
-        late_trump = sum(self.data_dict['Trump result'][:30])/30
+        early_trump = sum(self.data_dict['Trump result'][-30:]) / 30
+        late_trump = sum(self.data_dict['Trump result'][:30]) / 30
 
         return (late_harris-early_harris, (late_trump - early_trump))
 
