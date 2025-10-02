@@ -55,18 +55,20 @@ class PollReader():
         """
 
         # iterate through each row of the data
-        for i in self.raw_data:
+        for i in self.raw_data[1:]:
 
-            # split up the row by column
-            seperated = i.split(' ')
+            # split up the row by column (by comma)
+            seperated = i.split(',')
 
             # map each part of the row to the correct column
             self.data_dict['month'].append(seperated[0])
             self.data_dict['date'].append(int(seperated[1]))
-            self.data_dict['sample'].append(int(seperated[2]))
-            self.data_dict['sample type'].append(seperated[2])
+            self.data_dict['sample'].append(int(seperated[2].split(" ")[0])) # splits to only get the num wo the " LV" or " RV"
+            self.data_dict['sample type'].append(seperated[2].split(" ")[1]) # splits to only get the " LV" or " RV"
             self.data_dict['Harris result'].append(float(seperated[3]))
             self.data_dict['Trump result'].append(float(seperated[4]))
+        
+        print (self.data_dict)
 
 
     def highest_polling_candidate(self):
@@ -79,7 +81,21 @@ class PollReader():
         Returns:
             str: A string indicating the candidate with the highest polling percentage or EVEN,
              and the highest polling percentage.
+
         """
+        harris_total = 0
+        trump_total = 0
+        max_harris = max(self.data_dict['Harris result'])
+        max_trump = max(self.data_dict['Trump result'])
+
+        if max_harris > max_trump:
+            return f"Harris {(max_harris * 100):.1f}%" # .1f formats the f string for floating points so that it takes on the # of dec points (1 here)
+        elif max_trump > max_harris:
+            return f"Trump {(max_trump * 100):.1f}%"
+        else:
+            return f"EVEN {(max_harris * 100):.1f}%"
+
+
         pass
 
 
@@ -91,6 +107,14 @@ class PollReader():
             tuple: A tuple containing the average polling percentages for Harris and Trump
                    among likely voters, in that order.
         """
+
+        avg_harris = 
+        total = 0
+        for i in self.data_dict['Harrs result']:
+            if "LV" in i:
+                total += i
+        
+
         pass
 
 
